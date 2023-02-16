@@ -1,3 +1,3 @@
 <template>
-    leisureButton
+    <button>暇</button>
 </template>

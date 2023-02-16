@@ -1,3 +1,12 @@
 <template>
-    mypage
+    <p>アイコン</p>
+    <span>ユーザー名</span>
+    <span>sayyyyyy</span><br>
+    <span>ニックネーム</span>
+    <span>sayyyy</span><br>
+    <span>行った暇つぶし</span>
+    <ul>
+        <li>あああ</li>
+        <li>あああ</li>
+    </ul>
 </template>
