@@ -4,7 +4,6 @@
         <li>ユーザー１</li>
         <li>ユーザー２</li>
     </ul>
-    <
 </template>
 
 <script setup lang="ts">
