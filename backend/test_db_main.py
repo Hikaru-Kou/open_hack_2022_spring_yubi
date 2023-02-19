@@ -1,70 +1,52 @@
+from typing import List
+
 from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session, sessionmaker
 from starlette.requests import Request
 from pydantic import BaseModel
-from database import User, engine
 
-# DB接続用のセッションクラス インスタンスが作成されると接続する
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+import crud
+import models
+import schemas
+from database import SessionLocal, engine
 
-# Pydanticを用いたAPIに渡されるデータの定義 ValidationやDocumentationの機能が追加される
-class UserIn(BaseModel):
-    email: str
-    password: bool
+# テーブルの作成
+models.Base.metadata.create_all(bind=engine)
 
-# 単一のUserを取得するためのユーティリティ
-def get_user(database_session: Session, user_id: int):
-    return database_session.query(User).filter(User.id == user_id).first()
-
-# DB接続のセッションを各エンドポイントの関数に渡す
-def get_database(request: Request):
-    return request.state.database
-
-# このインスタンスをアノテーションに利用することでエンドポイントを定義できる
 app = FastAPI()
 
-# Userの全取得
+
+# DB接続セッション作成
+def get_db():
+   db = SessionLocal()
+   try:
+       yield db
+   finally:
+       db.close()
+
+
+@app.post("/users/", response_model=schemas.User)
+def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+   db_user = crud.get_user_by_email(db, email=user.email)
+   if db_user:
+       raise HTTPException(status_code=400, detail="Email already registered")
+   return crud.create_user(db=db, user=user)
+
+
 @app.get("/users/")
-def read_users(database: Session = Depends(get_database)):
-    users = database.query(User).all()
-    return users
+def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+   users = crud.get_users(db, skip=skip, limit=limit)
+   return users
 
-# 単一のUserを取得
-@app.get("/users/{user_id}")
-def read_user(user_id: int, database: Session = Depends(get_database)):
-    user = get_user(database, user_id)
-    return user
 
-# Userを登録
-@app.post("/users/")
-async def create_user(user_in: UserIn,  database: Session = Depends(get_database)):
-    user = User(email=user_in.email, password=False)
-    database.add(user)
-    database.commit()
-    user = get_user(database, user.id)
-    return user
+@app.get("/users/{user_id}", response_model=schemas.User)
+def read_user(user_id: int, db: Session = Depends(get_db)):
+   db_user = crud.get_user(db, user_id=user_id)
+   if db_user is None:
+       raise HTTPException(status_code=404, detail="User not found")
+   return db_user
 
-# Userを更新
-@app.put("/users/{user_id}")
-async def update_user(user_id: int, user_in: UserIn, database: Session = Depends(get_database)):
-    user = get_user(database, user_id)
-    user.email = user_in.email
-    user.password = user_in.password
-    database.commit()
-    user = get_user(database, user_id)
-    return user
-
-# Userを削除
-@app.delete("/users/{user_id}")
-async def delete_user(user_id: int, database: Session = Depends(get_database)):
-    user = get_user(database, user_id)
-    database.delete(user)
-    database.commit()
-
-# リクエストの度に呼ばれるミドルウェア DB接続用のセッションインスタンスを作成
-@app.middleware("http")
-async def database_session_middleware(request: Request, call_next):
-    request.state.database = SessionLocal()
-    response = await call_next(request)
-    request.state.database.close()
-    return response
+@app.get("/genres/", response_model=List[schemas.Genre])
+def read_genres(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+   genres = crud.get_genres(db, skip=skip, limit=limit)
+   return genres
