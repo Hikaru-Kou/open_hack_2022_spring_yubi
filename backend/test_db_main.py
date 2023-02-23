@@ -4,6 +4,7 @@ from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session, sessionmaker
 from starlette.requests import Request
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 
 import crud
 import models
@@ -13,8 +14,19 @@ from database import SessionLocal, engine
 # テーブルの作成
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
 
+app = FastAPI()
+origins = [
+    "http://localhost:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # DB接続セッション作成
 def get_db():
@@ -24,6 +36,10 @@ def get_db():
    finally:
        db.close()
 
+
+@app.get("/test")
+def test_response():
+   return {'message': 'test'}
 
 @app.post("/users/", response_model=schemas.User)
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
