@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-const API_URL = ''
+const API_URL = 'http://127.0.0.1:8080'
 const leisureList = []
 const postData = {
     userId: ''
