@@ -1,4 +1,5 @@
 from typing import List
+from typing import Union
 
 from fastapi import Depends, FastAPI
 from sqlalchemy.orm import Session, sessionmaker
@@ -23,6 +24,20 @@ def get_db():
        yield db
    finally:
        db.close()
+
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+@app.get("/1")
+def read_root():
+    return {"Hello": "1"}
+
+
+@app.get("/items/{item_id}")
+def read_item(item_id: int, q: Union[str, None] = None):
+    return {"item_id": item_id, "q": q}
 
 
 @app.post("/users/", response_model=schemas.User)

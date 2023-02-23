@@ -16,6 +16,15 @@ services:
     - port=3000
     - CHOKIDAR_USEPOLLING=true
     command: yarn run dev
+  
+  api:
+    volumes:
+      - ./backend/app:/app
+    build:
+      context: "./backend"
+      dockerfile: "Dockerfile"
+    ports:
+      - 8080:8080
 
 volumes:
   node_modules:
