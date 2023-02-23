@@ -3,27 +3,27 @@
 </template>
 
 <script setup lang="ts">
-const API_URL = ''
-const leisureList = []
+import { leisureStore } from '~~/store/leisure';
+
+const API_URL = 'http://127.0.0.1:8080'
+const leisure = leisureStore()
 const postData = {
     userId: ''
 }
 
 const getLeisureList = () => {
-    const leisureListController = useFetch(API_URL+ '/posts', {
-        method: 'POST',
-        body: postData,
+    const leisureListController = useFetch(API_URL+ '/search', {
+        method: 'GET',
         headers:{
         }
     })
     .then((e: any) => {
-        console.log(e)
-        // leisureList = e
+        console.log(e.data.value)
+        leisure.trendTop = e.data.value.trendtop
+        leisure.keywords = e.data.value.keywords
+        leisure.googleurl = e.data.value.googleurl
         navigateTo({
             path: '/proposalLeisure',
-            query: {
-                leisure: '暇つぶしのアプリ'
-            }
         })
     })
 }
