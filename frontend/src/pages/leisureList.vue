@@ -28,6 +28,4 @@ const getLeisureList = () => {
         console.log(e)
     })
 }
-
-// getLeisureList()
 </script>

@@ -1,8 +1,27 @@
 <template>
-    <p>{{ leisure.trendTop }}</p>
-    <button v-on:click="decideLeisure">つぶす</button>
-    <button v-on:click="getLeisureList">つぶさない</button>
+    <!-- Left Content -->
+    <div v-on:click="decideLeisure" class="absolute h-screen w-6/12 bg-orange-200 text-center">
+        <button class="relative top-3/4 text-3xl">つぶす</button>
+    </div>
+    <!-- Right Content -->
+    <div v-on:click="getLeisureList" class="absolute left-2/4 h-screen w-6/12 bg-zinc-300 text-center">
+        <button class="relative top-3/4 text-3xl">つぶさない</button>
+    </div>
+    <!-- center content -->
+    <div class="absolute top-10 bg-white drop-shadow-md rounded-md p-2 center">
+        <p class="">{{ leisure.trendTop }} でつぶす？</p>
+    </div>
 </template>
+
+<style>
+.center {
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    -webkit-transform: translateY(-50%) translateX(-50%);
+}
+</style>
 
 <script setup lang="ts">
 import { leisureStore } from '~~/store/leisure';
