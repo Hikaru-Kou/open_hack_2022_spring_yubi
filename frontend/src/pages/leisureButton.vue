@@ -1,5 +1,7 @@
 <template>
-    <button v-on:click="getLeisureList">暇</button>
+    <div class="bg-slate-100 h-screen">
+        <button v-on:click="getLeisureList">暇</button>
+    </div>
 </template>
 
 <script setup lang="ts">
