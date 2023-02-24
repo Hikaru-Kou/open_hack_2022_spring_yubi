@@ -1,15 +1,15 @@
 <template>
     <!-- Left Content -->
-    <div class="absolute h-screen w-6/12 bg-orange-200 text-center">
-        <button v-on:click="decideLeisure" class="relative top-3/4 text-3xl">つぶす</button>
+    <div v-on:click="decideLeisure" class="absolute h-screen w-6/12 bg-orange-200 text-center">
+        <button class="relative top-3/4 text-3xl">つぶす</button>
     </div>
     <!-- Right Content -->
-    <div class="absolute left-2/4 h-screen w-6/12 bg-zinc-300 text-center">
-        <button v-on:click="getLeisureList" class="relative top-3/4 text-3xl">つぶさない</button>
+    <div v-on:click="getLeisureList" class="absolute left-2/4 h-screen w-6/12 bg-zinc-300 text-center">
+        <button class="relative top-3/4 text-3xl">つぶさない</button>
     </div>
     <!-- center content -->
     <div class="absolute top-10 bg-white drop-shadow-md rounded-md p-2 center">
-        <p class="">{{ leisure.trendTop }}</p>
+        <p class="">{{ leisure.trendTop }} でつぶす？</p>
     </div>
 </template>
 

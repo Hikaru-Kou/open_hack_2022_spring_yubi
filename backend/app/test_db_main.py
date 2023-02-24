@@ -54,7 +54,7 @@ def search_trend():
    # キーワード一覧
    keywords = [word]
    # 検索範囲の日付
-   start_date, end_date = "2022-2-10T00", "2022-2-17T00"
+   start_date, end_date = "2022-2-18T00", "2022-2-24T00"
    # 検索リクエストのビルド
    pytrend_request.build_payload(kw_list=keywords, timeframe=f"{start_date} {end_date}", geo="JP")
    # 指定したキーワードの関連キーワード情報を取得する
@@ -69,7 +69,7 @@ def search_trend():
    print("↓がgoogle検索url")
    print("https://www.google.com/search?q="+related_top_keywords_table.values[0][0]+"&rlz=1C1FQRR_jaJP938JP938&oq="+related_top_keywords_table.values[0][0]+"&aqs=chrome..69i57j0i4i131i433i512j0i67i131i433j0i4i131i433i512j0i67l2j0i131i433i512l2j0i4i131i433i512j0i67.748j0j15&sourceid=chrome&ie=UTF-8")
    return   {"keywords":related_top_keywords_table.values,
-            "trendtop":related_top_keywords_table.values[0][0],
+            "trendtop":related_top_keywords_table.values[0][0].split(' ')[0],
             "googleurl":"https://www.google.com/search?q="+related_top_keywords_table.values[0][0]+"&rlz=1C1FQRR_jaJP938JP938&oq="+related_top_keywords_table.values[0][0]+"&aqs=chrome..69i57j0i4i131i433i512j0i67i131i433j0i4i131i433i512j0i67l2j0i131i433i512l2j0i4i131i433i512j0i67.748j0j15&sourceid=chrome&ie=UTF-8"
             }
 
