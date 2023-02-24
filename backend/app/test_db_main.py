@@ -49,12 +49,13 @@ def read_root():
 @app.get("/search")
 def search_trend():
    pytrend_request = TrendReq(hl="ja-jp", tz=540)
-   words = ["アニメ","映画","旅行","カフェ","アーティスト","PS4"]
+#    words = ["アニメ","映画","旅行","カフェ","アーティスト","PS4", "暇つぶし"]
+   words = ["映画", "カフェ", "アニメ"]
    word =  random.choice(words)
    # キーワード一覧
    keywords = [word]
    # 検索範囲の日付
-   start_date, end_date = "2022-2-18T00", "2022-2-24T00"
+   start_date, end_date = "2023-2-16T00", "2023-2-23T00"
    # 検索リクエストのビルド
    pytrend_request.build_payload(kw_list=keywords, timeframe=f"{start_date} {end_date}", geo="JP")
    # 指定したキーワードの関連キーワード情報を取得する
@@ -63,13 +64,16 @@ def search_trend():
    related_top_keywords_table = related_keywords_info[word]["rising"]
    print("検索ワード"+str(keywords))
    print("検索結果は")
-   print(related_top_keywords_table.values[0])
+#    print(related_top_keywords_table.values)
+   random_trend = random.choice(related_top_keywords_table.values)
+   print(random.choice(related_top_keywords_table.values))
    print("トップトレンドは")
    print(related_top_keywords_table.values[0][0])
    print("↓がgoogle検索url")
    print("https://www.google.com/search?q="+related_top_keywords_table.values[0][0]+"&rlz=1C1FQRR_jaJP938JP938&oq="+related_top_keywords_table.values[0][0]+"&aqs=chrome..69i57j0i4i131i433i512j0i67i131i433j0i4i131i433i512j0i67l2j0i131i433i512l2j0i4i131i433i512j0i67.748j0j15&sourceid=chrome&ie=UTF-8")
    return   {"keywords":related_top_keywords_table.values,
-            "trendtop":related_top_keywords_table.values[0][0].split(' ')[0],
+            # "trendtop":related_top_keywords_table.values[0][0],
+            "trendtop":random_trend[0],
             "googleurl":"https://www.google.com/search?q="+related_top_keywords_table.values[0][0]+"&rlz=1C1FQRR_jaJP938JP938&oq="+related_top_keywords_table.values[0][0]+"&aqs=chrome..69i57j0i4i131i433i512j0i67i131i433j0i4i131i433i512j0i67l2j0i131i433i512l2j0i4i131i433i512j0i67.748j0j15&sourceid=chrome&ie=UTF-8"
             }
 

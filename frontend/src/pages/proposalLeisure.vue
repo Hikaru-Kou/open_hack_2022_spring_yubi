@@ -1,6 +1,6 @@
 <template>
     <!-- Left Content -->
-    <div v-on:click="decideLeisure" class="absolute h-screen w-6/12 bg-orange-200 text-center">
+    <div v-on:click="decideLeisure" class="absolute h-screen w-6/12 bg-amber-300 text-center">
         <button class="relative top-3/4 text-3xl">つぶす</button>
     </div>
     <!-- Right Content -->
