@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <h1 class="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  </div>
+    <NuxtPage />
+    <FooterMenu></FooterMenu>
 </template>
+
+<script>
+import FooterMenu from '../src/components/FooterMenu.vue'
+</script>
