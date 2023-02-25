@@ -33,18 +33,20 @@ const postData = {
 }
 
 const decideLeisure = () => {
-    const decideLeisure = useFetch(API_URL+ '/posts', {
-        method: 'POST',
-        body: postData,
-        headers:{
-        }
-    })
-    .then((e: any) => {
-        console.log(e)
-        navigateTo({
-            path: '/proposalLeisure',
-        })
-    })
+    // const decideLeisure = useFetch(API_URL+ '/posts', {
+    //     method: 'POST',
+    //     body: postData,
+    //     headers:{
+    //     }
+    // })
+    // .then((e: any) => {
+    //     console.log(e)
+    //     navigateTo({
+    //         path: '/proposalLeisure',
+    //     })
+    // })
+    const url = leisure.googleurl
+    window.location.href = url
 }
 
 const getLeisureList = () => {
@@ -62,4 +64,14 @@ const getLeisureList = () => {
         })
     })
 }
+
+const hasLeisure = () => {
+    if (!leisure.trendTop) {
+        navigateTo({
+            path: '/leisureButton',
+        })
+    }
+}
+
+hasLeisure()
 </script>

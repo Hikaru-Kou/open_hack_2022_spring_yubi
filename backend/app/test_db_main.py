@@ -66,7 +66,7 @@ def search_trend():
    print("検索結果は")
 #    print(related_top_keywords_table.values)
    random_trend = random.choice(related_top_keywords_table.values)
-   print(random.choice(related_top_keywords_table.values))
+   print(random_trend[0])
    print("トップトレンドは")
    print(related_top_keywords_table.values[0][0])
    print("↓がgoogle検索url")
@@ -74,7 +74,7 @@ def search_trend():
    return   {"keywords":related_top_keywords_table.values,
             # "trendtop":related_top_keywords_table.values[0][0],
             "trendtop":random_trend[0],
-            "googleurl":"https://www.google.com/search?q="+related_top_keywords_table.values[0][0]+"&rlz=1C1FQRR_jaJP938JP938&oq="+related_top_keywords_table.values[0][0]+"&aqs=chrome..69i57j0i4i131i433i512j0i67i131i433j0i4i131i433i512j0i67l2j0i131i433i512l2j0i4i131i433i512j0i67.748j0j15&sourceid=chrome&ie=UTF-8"
+            "googleurl":"https://www.google.com/search?q="+random_trend[0]+"&rlz=1C1FQRR_jaJP938JP938&oq="+random_trend[0]+"&aqs=chrome..69i57j0i4i131i433i512j0i67i131i433j0i4i131i433i512j0i67l2j0i131i433i512l2j0i4i131i433i512j0i67.748j0j15&sourceid=chrome&ie=UTF-8"
             }
 
 
