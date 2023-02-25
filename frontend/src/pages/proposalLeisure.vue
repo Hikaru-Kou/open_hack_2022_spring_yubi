@@ -64,4 +64,14 @@ const getLeisureList = () => {
         })
     })
 }
+
+const hasLeisure = () => {
+    if (!leisure.trendTop) {
+        navigateTo({
+            path: '/leisureButton',
+        })
+    }
+}
+
+hasLeisure()
 </script>
