@@ -3,7 +3,7 @@
         <div class="flex justify-center items-start">
             <img src="images/mypage.png" class="w-6">
         </div>
-        <div class="flex justify-center items-start">
+        <div class="flex justify-center items-start" @click="goToHome">
             <img src="images/home.png" class="w-8">
         </div>
         <div class="flex justify-center items-start">
@@ -11,3 +11,11 @@
         </div>
     </div>
 </template>
+
+<script setup lang="ts">
+const goToHome = () => {
+    navigateTo({
+        path: '/leisureButton',
+    })
+}
+</script>
