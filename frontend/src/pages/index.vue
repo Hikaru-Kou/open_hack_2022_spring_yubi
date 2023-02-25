@@ -11,4 +11,12 @@ const goToRegistrationPage = () => {
 const goToLoginPage = () => {
     navigateTo('/login')
 }
+
+const goToHome = () => {
+    navigateTo({
+        path: '/leisureButton',
+    })
+}
+
+goToHome()
 </script>
